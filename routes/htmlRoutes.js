@@ -2,16 +2,26 @@ var db = require("../models");
 
 module.exports = function(app) {
   // Load index page
+  // app.get("/", function(req, res) {
+  //   db.Stocks.findAll({}).then(function(dbStocks) {
+  //     console.log("dbStocks[0]: ", dbStocks[0]);
+  //     console.log("dbStocks[0].dataValues: ", dbStocks[0].dataValues);
+  //     console.log("Keys", Object.keys(dbStocks[0]));
+  //     var send = dbStocks[0].dataValues;
+  //     res.render("index", {
+  //       msg: "Welcome!",
+  //       examples: send
+  //     });
+  //   });
+  // });
+
   app.get("/", function(req, res) {
     db.Stocks.findAll({}).then(function(dbStocks) {
-      console.log("dbStocks[0]: ", dbStocks[0]);
-      console.log("dbStocks[0].dataValues: ", dbStocks[0].dataValues);
-      console.log("Keys", Object.keys(dbStocks[0]));
-      var send = dbStocks[0].dataValues;
-      res.render("index", {
-        msg: "Welcome!",
-        examples: send
-      });
+      var hbsObject = {
+        examples: dbStocks
+      };
+      console.log(hbsObject);
+      res.render("index", hbsObject);
     });
   });
 
