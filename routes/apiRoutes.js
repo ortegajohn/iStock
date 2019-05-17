@@ -1,5 +1,5 @@
 var db = require("../models");
-
+// console.log("Keys res: ", Object.keys(res));
 module.exports = function(app) {
   // Get all examples
   app.get("/api/examples", function(req, res) {
@@ -10,7 +10,8 @@ module.exports = function(app) {
 
   // Create a new example
   app.post("/api/examples", function(req, res) {
-    db.Stocks.create(req.body).then(function(dbStocks) {
+    var test = { ticker: req.body.text };
+    db.Stocks.create(test).then(function(dbStocks) {
       res.json(dbStocks);
     });
   });

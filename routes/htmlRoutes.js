@@ -18,9 +18,10 @@ module.exports = function(app) {
   app.get("/", function(req, res) {
     db.Stocks.findAll({}).then(function(dbStocks) {
       var hbsObject = {
+        msg: "Welcome!",
         examples: dbStocks
       };
-      console.log(hbsObject);
+      // console.log(hbsObject);
       res.render("index", hbsObject);
     });
   });
