@@ -3,19 +3,25 @@ var db = require("../models");
 module.exports = function(app) {
   // Load index page
   app.get("/", function(req, res) {
-    db.Example.findAll({}).then(function(dbExamples) {
+    db.Stocks.findAll({}).then(function(dbStocks) {
+      console.log("dbStocks[0]: ", dbStocks[0]);
+      console.log("dbStocks[0].dataValues: ", dbStocks[0].dataValues);
+      console.log("Keys", Object.keys(dbStocks[0]));
+      var send = dbStocks[0].dataValues;
       res.render("index", {
         msg: "Welcome!",
-        examples: dbExamples
+        examples: send
       });
     });
   });
 
   // Load example page and pass in an example by id
   app.get("/example/:id", function(req, res) {
-    db.Example.findOne({ where: { id: req.params.id } }).then(function(dbExample) {
-      res.render("example", {
-        example: dbExample
+    db.Stocks.findOne({ where: { id: req.params.id } }).then(function(
+      dbStocks
+    ) {
+      res.render("Stocks", {
+        example: dbStocks
       });
     });
   });
