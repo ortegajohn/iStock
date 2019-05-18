@@ -23,7 +23,6 @@ var tickers11 = [];
 var names = [];
 var tickers_names = [];
 
-
 tickers11 = tickers11.concat(AMEX_tickers);
 tickers11 = tickers11.concat(NASDAQ_tickers);
 tickers11 = tickers11.concat(NYSE_tickers);
@@ -31,7 +30,6 @@ tickers11 = tickers11.concat(NYSE_tickers);
 names = names.concat(AMEX_names);
 names = names.concat(NASDAQ_names);
 names = names.concat(NYSE_names);
-
 
 for(j=0;j<tickers11.length;j++){
   tickers_names[j] = tickers11[j] +" " +names[j];
