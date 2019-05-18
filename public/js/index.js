@@ -1,3 +1,43 @@
+// gloval variables
+var price;
+var company;
+var tickers_already_used = [];
+var rotate_price_api = 0;
+var rotate_name_api = 0;
+
+var html_col_values = {
+  column_symbol: $("<th>"),
+  column_company: $("<th>"),
+  column_price: $("<th>"),
+  column_market: $("<th>")
+}
+
+var table_values = {
+  symbol: "",
+  price: "",
+  company: "",
+  market: "",
+}
+
+var tickers11 = [];
+var names = [];
+var tickers_names = [];
+
+
+tickers11 = tickers11.concat(AMEX_tickers);
+tickers11 = tickers11.concat(NASDAQ_tickers);
+tickers11 = tickers11.concat(NYSE_tickers);
+
+names = names.concat(AMEX_names);
+names = names.concat(NASDAQ_names);
+names = names.concat(NYSE_names);
+
+
+for(j=0;j<tickers11.length;j++){
+  tickers_names[j] = tickers11[j] +" " +names[j];
+}
+
+
 //  all frontend code like jquery and what not
 $(document).ready(function () {
 
@@ -43,15 +83,15 @@ $(document).ready(function () {
         await choose_name_api(ticker)
       }
 
-      getStockData(ticker)
-      newsfeed(ticker)
-      stockinfo(ticker)
+      orm.getStockData(ticker)
+      orm.newsfeed(ticker)
+      orm.stockinfo(ticker)
       // console.log("table_values: ", table_values)
 
       $(".input").val("")
-      update_chart(ticker)
+      orm.update_chart(ticker)
       $(".tradingview-widget-container").show()
-      hide_news()
+      orm.hide_news()
       // iex_price(ticker)
       $('.symbol').removeAttr('style'); // removes the backgound for the selected ticker that was darkened 
     }//end is_real_ticker if()
@@ -60,15 +100,15 @@ $(document).ready(function () {
   $(document).on("click", "#news_tab", function (e) {
     $("#info_tab").removeClass()
     $("#news_tab").addClass("is-active")
-    show_news()
-    hide_stockinfo()
+    orm.show_news()
+    orm.hide_stockinfo()
   });
 
   $(document).on("click", "#info_tab", function (e) {
     $("#info_tab").addClass("is-active")
     $("#news_tab").removeClass()
-    hide_news()
-    show_stockinfo()
+    orm.hide_news()
+    orm.show_stockinfo()
   });
 
   $(document).on("click", ".symbol", function (e) {
@@ -80,9 +120,9 @@ $(document).ready(function () {
     var ticker_of_row = x.textContent;
 
     $(this).css('background-color', 'grey');
-    update_chart(ticker_of_row)
-    newsfeed(ticker_of_row)
-    stockinfo(ticker_of_row)
+    orm.update_chart(ticker_of_row)
+    orm.newsfeed(ticker_of_row)
+    orm.stockinfo(ticker_of_row)
   });
 
   $(document).on("click", ".buttons", function (e) {
@@ -102,5 +142,7 @@ $(document).ready(function () {
       }
     }
   });
-
 });
+
+/*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
+orm.autocomplete(document.getElementById("myInput"), tickers_names);
