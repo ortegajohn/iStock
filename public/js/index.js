@@ -1,99 +1,106 @@
-// Get references to page elements
-var $exampleText = $("#example-text");
-var $exampleDescription = $("#example-description");
-var $submitBtn = $("#submit");
-var $exampleList = $("#example-list");
+//  all frontend code like jquery and what not
+$(document).ready(function () {
 
-// The API object contains methods for each kind of request we'll make
-var API = {
-  saveExample: function(example) {
-    return $.ajax({
-      headers: {
-        "Content-Type": "application/json"
-      },
-      type: "POST",
-      url: "api/examples",
-      data: JSON.stringify(example)
-    });
-  },
-  getExamples: function() {
-    return $.ajax({
-      url: "api/examples",
-      type: "GET"
-    });
-  },
-  deleteExample: function(id) {
-    return $.ajax({
-      url: "api/examples/" + id,
-      type: "DELETE"
-    });
-  }
-};
+  $(document).on("click", ".button", function (e) {
+    event.preventDefault();
+    var get_input = $(".input").val().toUpperCase()
+    get_input_ticker = get_input.split(" ", 1)
+    console.log("get_input_ticker: ", get_input_ticker)
+    console.log("get_input_ticker.join(): ", get_input_ticker.join())
+    var ticker = get_input_ticker.join()
 
-// refreshExamples gets new examples from the db and repopulates the list
-var refreshExamples = function() {
-  API.getExamples().then(function(data) {
-    var $examples = data.map(function(example) {
-      var $a = $("<a>")
-        .text(example.text)
-        .attr("href", "/example/" + example.id);
+    // console.log("ticker: ",ticker)
+    // console.log("tickers_already_used: ", tickers_already_used.indexOf(ticker))
 
-      var $li = $("<li>")
-        .attr({
-          class: "list-group-item",
-          "data-id": example.id
-        })
-        .append($a);
+    var is_real_ticker = false
 
-      var $button = $("<button>")
-        .addClass("btn btn-danger float-right delete")
-        .text("ｘ");
+    console.log("AMEX_tickers: ", AMEX_tickers.indexOf(ticker))
+    if (AMEX_tickers.indexOf(ticker) > -1) {
+      is_real_ticker = true;
+    }
+    console.log("NASDAQ_tickers: ", NASDAQ_tickers.indexOf(ticker))
+    if (NASDAQ_tickers.indexOf(ticker) > -1) {
+      is_real_ticker = true;
+    }
+    console.log("NYSE_tickers: ", NYSE_tickers.indexOf(ticker))
+    if (NYSE_tickers.indexOf(ticker) > -1) {
+      is_real_ticker = true;
+    }
+    console.log("is_real_ticker: ", is_real_ticker)
+    if (is_real_ticker) {
 
-      $li.append($button);
+      if (tickers_already_used.indexOf(ticker) <= -1) {
+        tickers_already_used.push(ticker);
+        table(ticker)
+      }
 
-      return $li;
-    });
+      async function getStockData(ticker) {
+        await set_symbol(ticker)
+        await get_market_cap(ticker)
+        // await get_ticker_info(ticker)
+        await choose_price_api(ticker)
+        // await get_ticker_company(ticker)
+        await choose_name_api(ticker)
+      }
 
-    $exampleList.empty();
-    $exampleList.append($examples);
-  });
-};
+      getStockData(ticker)
+      newsfeed(ticker)
+      stockinfo(ticker)
+      // console.log("table_values: ", table_values)
 
-// handleFormSubmit is called whenever we submit a new example
-// Save the new example to the db and refresh the list
-var handleFormSubmit = function(event) {
-  event.preventDefault();
-
-  var example = {
-    text: $exampleText.val().trim(),
-    description: $exampleDescription.val().trim()
-  };
-
-  if (!(example.text && example.description)) {
-    alert("You must enter an example text and description!");
-    return;
-  }
-
-  API.saveExample(example).then(function() {
-    refreshExamples();
+      $(".input").val("")
+      update_chart(ticker)
+      $(".tradingview-widget-container").show()
+      hide_news()
+      // iex_price(ticker)
+      $('.symbol').removeAttr('style'); // removes the backgound for the selected ticker that was darkened 
+    }//end is_real_ticker if()
   });
 
-  $exampleText.val("");
-  $exampleDescription.val("");
-};
-
-// handleDeleteBtnClick is called when an example's delete button is clicked
-// Remove the example from the db and refresh the list
-var handleDeleteBtnClick = function() {
-  var idToDelete = $(this)
-    .parent()
-    .attr("data-id");
-
-  API.deleteExample(idToDelete).then(function() {
-    refreshExamples();
+  $(document).on("click", "#news_tab", function (e) {
+    $("#info_tab").removeClass()
+    $("#news_tab").addClass("is-active")
+    show_news()
+    hide_stockinfo()
   });
-};
 
-// Add event listeners to the submit and delete buttons
-$submitBtn.on("click", handleFormSubmit);
-$exampleList.on("click", ".delete", handleDeleteBtnClick);
+  $(document).on("click", "#info_tab", function (e) {
+    $("#info_tab").addClass("is-active")
+    $("#news_tab").removeClass()
+    hide_news()
+    show_stockinfo()
+  });
+
+  $(document).on("click", ".symbol", function (e) {
+    $('.symbol').removeAttr('style'); // removes the backgound for the selected ticker that was darkened 
+    var x = $(this)["0"];
+    var y = $(this)["0"];
+    console.log("y: ", y)
+
+    var ticker_of_row = x.textContent;
+
+    $(this).css('background-color', 'grey');
+    update_chart(ticker_of_row)
+    newsfeed(ticker_of_row)
+    stockinfo(ticker_of_row)
+  });
+
+  $(document).on("click", ".buttons", function (e) {
+    // console.log("e",e.originalEvent.path)
+    console.log("e", e)
+    console.log("e", e.target.id)
+    var x = e.target.id
+    var y = x.split("_", 1)
+    var z = y.join();
+    console.log("z: ", z)
+
+    $(this).closest('tr').remove()
+    // tickers_already_used = []
+    for (var i = 0; i < tickers_already_used.length; i++) {
+      if (tickers_already_used[i] === z) {
+        tickers_already_used.splice(i, 1);
+      }
+    }
+  });
+
+});
