@@ -7,11 +7,13 @@
         <form class="clearfix mb-4" action="POST">
           <div class="form-group">
             <label for="example-text">Example Text</label>
-            <input type="text" id="example-text" class="form-control" aria-describedby="example-text" placeholder="Enter Example Text">
+            <input type="text" id="example-text" class="form-control" aria-describedby="example-text"
+              placeholder="Enter Example Text">
           </div>
           <div class="form-group">
             <label for="example-description">Example Description</label>
-            <textarea class="form-control" id="example-description" aria-describedby="example-description" placeholder="Enter Example Description"></textarea>
+            <textarea class="form-control" id="example-description" aria-describedby="example-description"
+              placeholder="Enter Example Description"></textarea>
           </div>
           <button id="submit" class="btn btn-primary float-right">Submit</button>
         </form>
@@ -29,5 +31,58 @@
   </div>
 </div>
 
+
+<div class="container " id="display">
+  <p> Stock market search</p>
+  <nav class="level " id="search">
+    <!-- Left side -->
+    <div class="level-left">
+      <div class="level-item">
+        <p class="subtitle is-5">
+          <p>Enter the stock name or symbol<p>
+            </p>
+      </div>
+      <div class="level-item">
+        <div class="field has-addons">
+          <p class="control">
+            <form autocomplete="off" action="/action_page.php">
+              <div class="autocomplete" style="width:300px;">
+                <input class="input" id="myInput" type="text" placeholder="Search stock">
+              </div>
+              <!-- <input type="submit"> -->
+            </form>
+          </p>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Right side -->
+    <div class="level-right">
+      <p class="control">
+        <button class="button">
+          Search Stock
+        </button>
+      </p>
+
+    </div>
+  </nav>
+</div>
+
+
+
+<!-- TradingView Widget BEGIN -->
+<div class="tradingview-widget-container">
+  <div id="tradingview_72e3c"></div>
+  <div class="tradingview-widget-copyright"><a id="web_chart" href="https://www.tradingview.com/symbols/NASDAQ-AAPL/"
+      rel="noopener" target="_blank"><span class="blue-text"></span></a></div>
+
+</div>
+<!-- TradingView Widget END -->
+
+<script src="/js/AMEXstocksymbol.js"></script>
+<script src="/js/NASDAQstocksymbol.js"></script>
+<script src="/js/NYSEstocksymbol.js"></script>
+<script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="/js/index.js"></script>
