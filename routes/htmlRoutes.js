@@ -1,16 +1,17 @@
 var db = require("../models");
 
 module.exports = function(app) {
+  // hmtl route to display homepage (index.html)
+app.get("/", function(req,res){
+    res.render("index");
+})
+
   // Load index page
   // app.get("/", function(req, res) {
-  //   db.Stocks.findAll({}).then(function(dbStocks) {
-  //     console.log("dbStocks[0]: ", dbStocks[0]);
-  //     console.log("dbStocks[0].dataValues: ", dbStocks[0].dataValues);
-  //     console.log("Keys", Object.keys(dbStocks[0]));
-  //     var send = dbStocks[0].dataValues;
+  //   db.Example.findAll({}).then(function(dbExamples) {
   //     res.render("index", {
   //       msg: "Welcome!",
-  //       examples: send
+  //       examples: dbExamples
   //     });
   //   });
   // });
@@ -36,8 +37,5 @@ module.exports = function(app) {
     });
   });
 
-  // Render 404 page for any unmatched routes
-  app.get("*", function(req, res) {
-    res.render("404");
-  });
+
 };
