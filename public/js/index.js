@@ -1,3 +1,5 @@
+// var orm = require("orm.js");
+
 // gloval variables
 var price;
 var company;
