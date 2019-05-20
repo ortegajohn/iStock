@@ -9,7 +9,7 @@
  } */
 
  html{
-    background-image: url(../../public/images/background1.jpg); 
+    background-image: url(../images/background1.jpg); 
   
    }
   
@@ -181,14 +181,14 @@
       line-height: 2.5;
     }
 
-    .button {
+    /* .button {
       background-color:red;
     }
 
     .table {
       background-color:red;
     }
-    
+     */
     
     
   
