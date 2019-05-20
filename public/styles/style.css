@@ -9,7 +9,7 @@
  } */
 
  html{
-    background-image: url(../images/background1.jpg); 
+    background-image: url(../../public/images/background1.jpg); 
   
    }
   
@@ -179,6 +179,14 @@
 
     .list-group-item {
       line-height: 2.5;
+    }
+
+    .button {
+      background-color:red;
+    }
+
+    .table {
+      background-color:red;
     }
     
     
