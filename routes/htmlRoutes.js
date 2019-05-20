@@ -16,18 +16,26 @@ app.get("/", function(req,res){
   //   });
   // });
 
-  // // Load example page and pass in an example by id
-  // app.get("/example/:id", function(req, res) {
-  //   db.Example.findOne({ where: { id: req.params.id } }).then(function(dbExample) {
-  //     res.render("example", {
-  //       example: dbExample
-  //     });
-  //   });
-  // });
+  app.get("/", function(req, res) {
+    db.Stocks.findAll({}).then(function(dbStocks) {
+      var hbsObject = {
+        examples: dbStocks
+      };
+      console.log(hbsObject);
+      res.render("index", hbsObject);
+    });
+  });
 
-  // // Render 404 page for any unmatched routes
-  // app.get("*", function(req, res) {
-  //   res.render("404");
-  // });
+  // Load example page and pass in an example by id
+  app.get("/example/:id", function(req, res) {
+    db.Stocks.findOne({ where: { id: req.params.id } }).then(function(
+      dbStocks
+    ) {
+      res.render("Stocks", {
+        example: dbStocks
+      });
+    });
+  });
+
 
 };
