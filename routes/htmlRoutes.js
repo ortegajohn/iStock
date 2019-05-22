@@ -2,9 +2,9 @@ var db = require("../models");
 
 module.exports = function(app) {
   // hmtl route to display homepage (index.html)
-app.get("/", function(req,res){
+  app.get("/", function(req, res) {
     res.render("index");
-})
+  });
 
   // Load index page
   // app.get("/", function(req, res) {

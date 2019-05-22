@@ -1,6 +1,4 @@
 // bring overjquery functions from original code and store in orm
-
-
 var orm = {
     get_index: function (ticker) {
         var index = "";
