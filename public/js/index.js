@@ -1,5 +1,3 @@
-// var orm = require("orm.js");
-
 // gloval variables
 var price;
 var company;
@@ -34,9 +32,85 @@ names = names.concat(NASDAQ_names);
 names = names.concat(NYSE_names);
 
 for(j=0;j<tickers11.length;j++){
-  tickers_names[j] = tickers11[j] +" " +names[j];
+  tickers_names[j] = tickers11[j] + " " + names[j];
 }
 
+// frontend functions
+function table(ticker) {
+  var symbol_table = $("<tr  class='hover1'>")
+  // var placeHolder = "#"
+
+  symbol_table.append(`<th id="${ticker}_symbol" class= "symbol" scope="col"></th>`)
+  // symbol_table.append(`<th id="${ticker}_company" class= "company" scope="col"></th>`)
+  // symbol_table.append(`<th id="${ticker}_price" class= "price" scope="col"></th>`)
+  // symbol_table.append(`<th id="${ticker}_market" class= "market" scope="col"></th>`)
+  // symbol_table.append(`<th class="del_button" scope="col"> <button ticker="${ticker}" class="buttons" id="${ticker}_deletebtn">delete</button></th>`)
+
+ $("#table_content").append(symbol_table)
+}
+
+function set_symbol(x) {
+  $("#" + x + "_symbol").text(x)
+}
+
+function get_index(ticker) {
+  var index = "";
+  for (i = 0; i < NASDAQ_tickers.length; i++) {
+    if (i === ticker.toUpperCase()) {
+      index = "NASDAQ";
+    }
+  }
+  for (i = 0; i < NYSE_tickers.length; i++) {
+    if (i === ticker.toUpperCase()) {
+      index = "NYSE";
+    }
+  }
+  for (i = 0; i < AMEX_tickers.length; i++) {
+    if (i === ticker.toUpperCase()) {
+      index = "AMEX";
+    }
+  }
+  // console.log("index: ",index)
+  return index
+}
+
+function update_chart(ticker) {
+  //"https://www.tradingview.com/symbols/NYSE-MMM/"
+  // $("#web_chart").attr("href","https://www.tradingview.com/symbols/NYSE-MMM/")
+  // TradingView.widget["symbol"] = "NYSE:​MMM"
+  new TradingView.widget(
+    {
+      "width": 880,
+      "height": 510,
+      "symbol": get_index(ticker) + ":" + ticker,
+      "interval": "D",
+      "timezone": "Etc/UTC",
+      "theme": "Light",
+      "style": "1",
+      "locale": "en",
+      "toolbar_bg": "#f1f3f6",
+      "enable_publishing": false,
+      "allow_symbol_change": true,
+      "container_id": "tradingview_72e3c"
+      // "container_id": "tradingview_845d6"
+    }
+  );
+};
+
+function hide_news() {
+  $("#stocknews_id").hide()
+}
+function show_news() {
+  $("#stocknews_id").show()
+}
+
+function hide_stockinfo() {
+  $("#stockinfo_id").hide()
+}
+
+function show_stockinfo() {
+  $("#stockinfo_id").show()
+}
 
 //  all frontend code like jquery and what not
 $(document).ready(function () {
@@ -76,22 +150,22 @@ $(document).ready(function () {
 
       async function getStockData(ticker) {
         await set_symbol(ticker)
-        await get_market_cap(ticker)
-        // await get_ticker_info(ticker)
-        await choose_price_api(ticker)
-        // await get_ticker_company(ticker)
-        await choose_name_api(ticker)
+        // await get_market_cap(ticker)
+        // // await get_ticker_info(ticker)
+        // await choose_price_api(ticker)
+        // // await get_ticker_company(ticker)
+        // await choose_name_api(ticker)
       }
 
-      orm.getStockData(ticker)
-      orm.newsfeed(ticker)
-      orm.stockinfo(ticker)
-      // console.log("table_values: ", table_values)
+      getStockData(ticker)
+      // newsfeed(ticker)
+      // stockinfo(ticker)
+      // // console.log("table_values: ", table_values)
 
       $(".input").val("")
-      orm.update_chart(ticker)
+      update_chart(ticker)
       $(".tradingview-widget-container").show()
-      orm.hide_news()
+      hide_news()
       // iex_price(ticker)
       $('.symbol').removeAttr('style'); // removes the backgound for the selected ticker that was darkened 
     }//end is_real_ticker if()
@@ -100,15 +174,15 @@ $(document).ready(function () {
   $(document).on("click", "#news_tab", function (e) {
     $("#info_tab").removeClass()
     $("#news_tab").addClass("is-active")
-    orm.show_news()
-    orm.hide_stockinfo()
+    show_news()
+    hide_stockinfo()
   });
 
   $(document).on("click", "#info_tab", function (e) {
     $("#info_tab").addClass("is-active")
     $("#news_tab").removeClass()
-    orm.hide_news()
-    orm.show_stockinfo()
+    hide_news()
+    show_stockinfo()
   });
 
   $(document).on("click", ".symbol", function (e) {
@@ -120,9 +194,9 @@ $(document).ready(function () {
     var ticker_of_row = x.textContent;
 
     $(this).css('background-color', 'grey');
-    orm.update_chart(ticker_of_row)
-    orm.newsfeed(ticker_of_row)
-    orm.stockinfo(ticker_of_row)
+    update_chart(ticker_of_row)
+    newsfeed(ticker_of_row)
+    stockinfo(ticker_of_row)
   });
 
   $(document).on("click", ".buttons", function (e) {
@@ -145,4 +219,4 @@ $(document).ready(function () {
 });
 
 /*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
-orm.autocomplete(document.getElementById("myInput"), tickers_names);
+autocomplete(document.getElementById("myInput"), tickers_names);
