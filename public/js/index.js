@@ -1,4 +1,3 @@
-// var orm = require("orm.js");
 
 // gloval variables
 var price;
@@ -36,6 +35,10 @@ names = names.concat(NYSE_names);
 for(j=0;j<tickers11.length;j++){
   tickers_names[j] = tickers11[j] +" " +names[j];
 }
+
+// frontend functions
+
+
 
 
 //  all frontend code like jquery and what not
