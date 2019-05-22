@@ -1,0 +1,71 @@
+.form.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  /* signin section */
+  .form-signin-container {
+    margin: 5vh 0 0 0;
+  }
+  
+  .form-signin {
+    padding: 100px 50px;
+    background-color: #ffffff80;
+    border-radius: 10px;
+  }
+  
+  .title-signin {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+  
+  /* signup section */
+  .form-signup-container {
+    margin: 5vh 0 0 0;
+  }
+  
+  .form-signup {
+    padding: 50px 50px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+  }
+  
+  .title-signup {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+  
+  /* helpers section */
+  .btn-container {
+    padding: 5px;
+  }
+  
+  .btn-container > a,
+  .btn-container > button {
+    margin: 5px;
+  }
+  
+  /* main section */
+  .main .welcome-text {
+    text-align: center;
+    margin: 25vh 0 0 0;
+  }
+  
+  .main h3 {
+    color: #fff;
+  }
+  
+  @media screen and (max-width: 1200px) {
+    body {
+      background-size: auto;
+    }
+  
+    .form-signin {
+      padding: 25px;
+    }
+  
+    .form-signup {
+        padding: 20px;
+    }
+  }
