@@ -97,6 +97,126 @@ function update_chart(ticker) {
   );
 };
 
+function stockinfo(symbol) {
+
+  $.ajax({
+    url: "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=" + symbol + "&apikey=MVG2GAAJUF1WORNH",
+    method: "GET"
+  }).then(function (response) {
+    // console.log(response)
+
+    var time_series = [];
+    for (i in response["Time Series (Daily)"]) {
+      time_series.push(i)
+    }
+    a = time_series[0].replace(/^\s+/, "")
+    var openPrice = response["Time Series (Daily)"][a]["1. open"]
+    // console.log(price);
+
+    b = time_series[1].replace(/^\s+/, "")
+    var highPrice = response["Time Series (Daily)"][b]["2. high"]
+
+    c = time_series[2].replace(/^\s+/, "")
+    var lowPrice = response["Time Series (Daily)"][c]["3. low"]
+
+    d = time_series[3].replace(/^\s+/, "")
+    var closePrice = response["Time Series (Daily)"][d]["4. close"]
+
+    e = time_series[4].replace(/^\s+/, "")
+    var volumePrice = response["Time Series (Daily)"][d]["5. volume"]
+    
+    // var symbol = $(".input").val();
+    var symbolName = $("<div>");
+    var p1 = $("<p>");
+    p1.text("Symbol:  " + symbol);
+    p1.addClass("para")
+
+    var open = $("<div>");
+    var p2 = $("<p>");
+    p2.text("price: " + openPrice)
+    p2.addClass("para")
+
+    var high = $("<div>")
+    var p3 = $("<p>");
+    p3.text("High Price   " + highPrice);
+    p3.addClass("para")
+
+    var low = $("<div>");
+    var p4 = $("<p>");
+    p4.text("low price " + lowPrice);
+    p4.addClass("para")
+
+    var close = $("<div>");
+    var p5 = $("<p>");
+    p5.text("close price " + closePrice)
+    p5.addClass("para")
+
+    var volume = $("<div>");
+    var p6 = $("<p>")
+    p6.text("Volume " + volumePrice)
+    p6.addClass("para")
+
+    symbolName.append(p1)
+    open.append(p2)
+    high.append(p3)
+    low.append(p4)
+    close.append(p5)
+    volume.append(p6)
+
+    $("#stockinfo_id").empty();
+    $("#stockinfo_id").append(symbolName)
+    $("#stockinfo_id").append(open)
+    $("#stockinfo_id").append(high)
+    $("#stockinfo_id").append(low)
+    $("#stockinfo_id").append(close)
+    $("#stockinfo_id").append(volume)
+  });
+};
+
+function newsfeed(symbol) {
+  $.ajax({
+    ///stock/aapl/batch?types=quote,news,chart&range=1m&last=1
+    url: "https://api.iextrading.com/1.0/stock/" + symbol + "/batch?types=quote,news,chart&range=1m&last=10",
+
+    method: "GET"
+  }).then(function (response) {
+
+    var stocknews = response.news
+    // console.log(stocknews);
+    $("#stocknews_id").empty()
+    for (var i = 0; i < stocknews.length; i++) {
+
+      var stockheadline = stocknews.headline
+      var newsDiv = $("<div>")
+
+      var link = $("<a>")
+      var newsSource = $("<p>").text("Source: " + stocknews[i].source)
+      var newsdateline = $("<p>").text("DateTime: " + stocknews[i].datetime)
+      var newsPara = $("<p>").text("News: " + stocknews[i].headline)
+      var newsURL = $("<p>").text("URL:" + stocknews[i].url)
+      link.attr("href", stocknews[i].url)
+      link.attr("target", "_blank")
+      // newsURL.append(link);
+
+      // newsURL.addClass("urlclass")
+      link.append(newsURL)
+      link.addClass("urlclass")
+
+      newsDiv.append(newsdateline)
+
+      newsDiv.append(newsSource)
+      newsDiv.append(newsPara)
+      // newsDiv.append(newsURL)
+      newsDiv.append(link)
+
+      // $("#stockcontent").append(newsDiv);
+      $("#stocknews_id").append(newsDiv);
+      $("#stocknews_id").append("</br>");
+
+    }
+  });
+}
+
 function hide_news() {
   $("#stocknews_id").hide()
 }
@@ -158,8 +278,8 @@ $(document).ready(function () {
       }
 
       getStockData(ticker)
-      // newsfeed(ticker)
-      // stockinfo(ticker)
+      newsfeed(ticker)
+      stockinfo(ticker)
       // // console.log("table_values: ", table_values)
 
       $(".input").val("")
