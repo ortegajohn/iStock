@@ -1,9 +1,19 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-  <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  {{!-- Link Bootstrap --}}
+  <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css'>
+  {{!-- Link CSS --}}
+  <link rel="stylesheet" href="css/style.css">
+
+  {{!-- combine login and stock page --}}
+  {{!-- combine login and stock page --}}
+  {{!-- <meta charset="utf-8"> --}}
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   {{!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css"> --}}
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css">
@@ -11,16 +21,29 @@
   <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
   <link href="styles/style.css" rel="stylesheet">
   <link rel="shortcut icon" href="../public/images/Logo1.jpg" type="image/x-icon" />
+
+  {{!-- combine login and stock page --}}
+  {{!-- combine login and stock page --}}
+
+  <title>iStock Login</title>
 </head>
 
 <body>
-  {{{body}}}
+
+  {{> navbar }}
+
+  {{> messages }}
+
+  {{{ body }}}
+  {{!-- go to stock page js --}}
+  <script src="js/button.js"></script>\
   <script src="js/index.js"></script>
-  {{!-- <script src="js/AMEXstocksymbol.js"></script> --}}
-  {{!-- <script src="js/NASDAQstocksymbol.js"></script> --}}
-  {{!-- <script src="js/NYSEstocksymbol.js"></script> --}}
-  {{!-- <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script> --}}
-  {{!-- <script src="/models/index.js"></script> --}}
+  {{!-- Script JQuery --}}
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  {{!-- Script Popper --}}
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js'></script>
+  {{!-- Script Bootstrap --}}
+  <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js'></script>
 </body>
 
 </html>
