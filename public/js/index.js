@@ -1,4 +1,5 @@
 // gloval variables
+
 var price;
 var company;
 var tickers_already_used = [];
@@ -19,21 +20,21 @@ var table_values = {
   market: "",
 }
 
-var tickers11 = [];
-var names = [];
-var tickers_names = [];
+// var tickers11 = [];
+// var names = [];
+// var tickers_names = [];
 
-tickers11 = tickers11.concat(AMEX_tickers);
-tickers11 = tickers11.concat(NASDAQ_tickers);
-tickers11 = tickers11.concat(NYSE_tickers);
+// tickers11 = tickers11.concat(AMEX_tickers);
+// tickers11 = tickers11.concat(NASDAQ_tickers);
+// tickers11 = tickers11.concat(NYSE_tickers);
 
-names = names.concat(AMEX_names);
-names = names.concat(NASDAQ_names);
-names = names.concat(NYSE_names);
+// names = names.concat(AMEX_names);
+// names = names.concat(NASDAQ_names);
+// names = names.concat(NYSE_names);
 
-for(j=0;j<tickers11.length;j++){
-  tickers_names[j] = tickers11[j] + " " + names[j];
-}
+// for(j=0;j<tickers11.length;j++){
+//   tickers_names[j] = tickers11[j] + " " + names[j];
+// }
 
 // frontend functions
 function table(ticker) {
@@ -234,9 +235,25 @@ function show_stockinfo() {
 
 //  all frontend code like jquery and what not
 $(document).ready(function () {
+ 
 
   $(document).on("click", ".button", function (e) {
     event.preventDefault();
+    // $.ajax({
+    //   method: "GET",
+    //   url: "/api/getuserid"
+    // })
+    //   .then(function(res) {
+    //     console.log("AAAAAAAAAAAA")
+    //     console.log("AAAAAAAAAAAA",res)
+    //   });
+
+    $.get("/api/getuserid", function(req,res) {
+      console.log("AAAAAAAAAAAA",req)
+      console.log("AAAAAAAAAAAA",res)
+    
+      });
+
     var get_input = $(".input").val().toUpperCase()
     get_input_ticker = get_input.split(" ", 1)
     console.log("get_input_ticker: ", get_input_ticker)
@@ -337,6 +354,3 @@ $(document).ready(function () {
     }
   });
 });
-
-/*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
-autocomplete(document.getElementById("myInput"), tickers_names);

@@ -34,4 +34,10 @@ expressRouter.get("api/stockpage", function(req, res) {
     res.render("indexstock");
   });
 
+  expressRouter.get("api/userid1", function(req, res) {
+
+    res.json("indexstock");
+  });
+
+
 module.exports = expressRouter;
