@@ -47,7 +47,7 @@ function table(ticker) {
   // symbol_table.append(`<th id="${ticker}_market" class= "market" scope="col"></th>`)
   // symbol_table.append(`<th class="del_button" scope="col"> <button ticker="${ticker}" class="buttons" id="${ticker}_deletebtn">delete</button></th>`)
 
- $("#table_content").append(symbol_table)
+  $("#table_content").append(symbol_table)
 }
 
 function set_symbol(x) {
@@ -125,7 +125,7 @@ function stockinfo(symbol) {
 
     e = time_series[4].replace(/^\s+/, "")
     var volumePrice = response["Time Series (Daily)"][d]["5. volume"]
-    
+
     // var symbol = $(".input").val();
     var symbolName = $("<div>");
     var p1 = $("<p>");
@@ -233,9 +233,39 @@ function show_stockinfo() {
   $("#stockinfo_id").show()
 }
 
+
+// The API object contains methods for each kind of request we'll make
+var API = {
+  saveExample: function (example) {
+    console.log("Test");
+    return $.ajax({
+      headers: {
+        "Content-Type": "application/json"
+      },
+      type: "POST",
+      url: "api/examples",
+      data: JSON.stringify(example)
+    });
+  },
+  getExamples: function () {
+    return $.ajax({
+      url: "api/examples",
+      // url: "/",
+      type: "GET"
+    });
+  },
+  deleteExample: function (id) {
+    return $.ajax({
+      url: "api/examples/" + id,
+      type: "DELETE"
+    });
+  }
+};
+
+
 //  all frontend code like jquery and what not
 $(document).ready(function () {
- 
+
 
   $(document).on("click", ".button", function (e) {
     event.preventDefault();
@@ -248,11 +278,7 @@ $(document).ready(function () {
     //     console.log("AAAAAAAAAAAA",res)
     //   });
 
-    $.get("/api/getuserid", function(req,res) {
-      console.log("AAAAAAAAAAAA",req)
-      console.log("AAAAAAAAAAAA",res)
-    
-      });
+
 
     var get_input = $(".input").val().toUpperCase()
     get_input_ticker = get_input.split(" ", 1)
@@ -293,6 +319,21 @@ $(document).ready(function () {
         // // await get_ticker_company(ticker)
         // await choose_name_api(ticker)
       }
+
+
+      $.get("/api/getuserid", function (req, res) {
+        console.log("/api/getuserid.req", req.userid)
+        console.log("/api/getuserid.res", res)
+        var savetodatabase = {
+          ticker: ticker,
+          user_id: req.userid
+        };
+        console.log("savetodatabase", savetodatabase)
+        API.saveExample(savetodatabase).then(function () {
+          console.log("Save Ticker To Database", req)
+        });
+  
+      });
 
       getStockData(ticker)
       newsfeed(ticker)
