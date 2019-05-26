@@ -38,6 +38,7 @@ var table_values = {
 
 // frontend functions
 function table(ticker) {
+  console.log("This is ticker in table: ", ticker)
   var symbol_table = $("<tr  class='hover1'>")
   // var placeHolder = "#"
 
@@ -237,13 +238,12 @@ function show_stockinfo() {
 // The API object contains methods for each kind of request we'll make
 var API = {
   saveExample: function (example) {
-    console.log("Test");
     return $.ajax({
       headers: {
         "Content-Type": "application/json"
       },
       type: "POST",
-      url: "api/examples",
+      url: "api/saveticker",
       data: JSON.stringify(example)
     });
   },
@@ -262,9 +262,47 @@ var API = {
   }
 };
 
+function gittickers() {
+
+  $.get("/api/getuserid", function (req, res) {
+    console.log("/api/getuserid.req", req.userid)
+    console.log("/api/getuserid.res", res)
+    var savetodatabaseid = {
+      user_id: req.userid
+    };
+    console.log("savetodatabaseid", savetodatabaseid)
+    API.getExamples(savetodatabaseid).then(function (data) {
+      // console.log("Save Ticker To Database", req)
+      console.log("data: ", data)
+      for (i = 0; i < data.length; i++) {
+        console.log("data[i].ticker: ", data[i].ticker)
+        table(data[i].ticker)
+        set_symbol(data[i].ticker)
+  
+      }
+    });
+
+  });
+
+
+  // API.getExamples().then(function (data) {
+  //   console.log("data: ", data)
+  //   for (i = 0; i < data.length; i++) {
+  //     console.log("data[i].ticker: ", data[i].ticker)
+  //     table(data[i].ticker)
+  //     set_symbol(data[i].ticker)
+
+  //   }
+
+  // });
+
+}
+
 
 //  all frontend code like jquery and what not
 $(document).ready(function () {
+
+  gittickers()
 
 
   $(document).on("click", ".button", function (e) {
@@ -330,9 +368,9 @@ $(document).ready(function () {
         };
         console.log("savetodatabase", savetodatabase)
         API.saveExample(savetodatabase).then(function () {
-          console.log("Save Ticker To Database", req)
+          // console.log("Save Ticker To Database", req)
         });
-  
+
       });
 
       getStockData(ticker)
