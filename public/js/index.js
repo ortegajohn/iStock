@@ -5,12 +5,79 @@ var tickers_already_used = [];
 var rotate_price_api = 0;
 var rotate_name_api = 0;
 
+var $submitBtn = $("#button");
+
 var html_col_values = {
   column_symbol: $("<th>"),
   column_company: $("<th>"),
   column_price: $("<th>"),
   column_market: $("<th>")
 }
+var $tablecontent = $("#table_content"); 
+var stocks = [];
+
+var API = {
+  saveExample: function(example) {
+    console.log("example: " + example);
+    return $.ajax({
+      headers: {
+        "Content-Type": "application/json"
+      },
+      type: "POST",
+      url: "api/examples",
+      data: JSON.stringify(example)
+    });
+  }
+}
+
+  // Getting todos from database when page loads
+  getStocks();
+
+  // This function resets the todos displayed with new todos from the database
+  function initializeRows() {
+    $tablecontent.empty();
+    var stocksToAdd = [];
+    for (var i = 0; i < stocks.length; i++) {
+      stocksToAdd.push(createNewRow(stocks[i]));
+    }
+    $tablecontent.prepend(stocksToAdd);
+  }
+
+  // This function grabs todos from the database and updates the view
+  function getStocks() {
+    $.get("/api/examples", function(data) {
+      // stocks = data;
+      // initializeRows();
+    });
+  }
+
+  // function createNewRow(stocks) {
+  //   var $newInputRow = $(
+  //     [
+  //       "<li class='list-group-item todo-item'>",
+  //       "<span>",
+  //       stocks.id + " ",
+  //       stocks.name,
+  //       stocks.price,
+  //       stocks.percentChange,
+  //       stocks.dayHigh,
+  //       stocks.dayLow,
+  //       stocks.marketCap,
+  //       "</span>",
+  //       "<input type='text' class='edit' style='display: none;'>",
+  //       "</li>"
+  //     ].join("")
+  //   );
+
+  //   
+  // $newInputRow.find("button.delete").data("id", stocks.id);
+  //   $newInputRow.find("input.edit").css("display", "none");
+  //   $newInputRow.data("stocks", stocks);
+  //   if (stocks.complete) {
+  //     $newInputRow.find("span").css("text-decoration", "line-through");
+  //   }
+  //   return $newInputRow;
+  // }
 
 var table_values = {
   symbol: "",
@@ -36,22 +103,22 @@ for(j=0;j<tickers11.length;j++){
 }
 
 // frontend functions
-function table(ticker) {
-  var symbol_table = $("<tr  class='hover1'>")
-  // var placeHolder = "#"
+// function table(ticker) {
+//   var symbol_table = $("<tr  class='hover1'>")
+//   // var placeHolder = "#"
 
-  symbol_table.append(`<th id="${ticker}_symbol" class= "symbol" scope="col"></th>`)
-  // symbol_table.append(`<th id="${ticker}_company" class= "company" scope="col"></th>`)
-  // symbol_table.append(`<th id="${ticker}_price" class= "price" scope="col"></th>`)
-  // symbol_table.append(`<th id="${ticker}_market" class= "market" scope="col"></th>`)
-  // symbol_table.append(`<th class="del_button" scope="col"> <button ticker="${ticker}" class="buttons" id="${ticker}_deletebtn">delete</button></th>`)
+//   symbol_table.append(`<th id="${ticker}_symbol" class= "symbol" scope="col"></th>`)
+//   // symbol_table.append(`<th id="${ticker}_company" class= "company" scope="col"></th>`)
+//   // symbol_table.append(`<th id="${ticker}_price" class= "price" scope="col"></th>`)
+//   // symbol_table.append(`<th id="${ticker}_market" class= "market" scope="col"></th>`)
+//   // symbol_table.append(`<th class="del_button" scope="col"> <button ticker="${ticker}" class="buttons" id="${ticker}_deletebtn">delete</button></th>`)
 
- $("#table_content").append(symbol_table)
-}
+//  $("#table_content").append(symbol_table)
+// }
 
-function set_symbol(x) {
-  $("#" + x + "_symbol").text(x)
-}
+// function set_symbol(x) {
+//   $("#" + x + "_symbol").text(x)
+// }
 
 function get_index(ticker) {
   var index = "";
@@ -122,8 +189,10 @@ $(document).ready(function () {
     console.log("get_input_ticker: ", get_input_ticker)
     console.log("get_input_ticker.join(): ", get_input_ticker.join())
     var ticker = get_input_ticker.join()
+    var tickerObject = {ticker: ticker};
 
-    // console.log("ticker: ",ticker)
+    API.saveExample(tickerObject);
+
     // console.log("tickers_already_used: ", tickers_already_used.indexOf(ticker))
 
     var is_real_ticker = false
@@ -143,10 +212,11 @@ $(document).ready(function () {
     console.log("is_real_ticker: ", is_real_ticker)
     if (is_real_ticker) {
 
-      if (tickers_already_used.indexOf(ticker) <= -1) {
-        tickers_already_used.push(ticker);
-        table(ticker)
-      }
+      // if (tickers_already_used.indexOf(ticker) <= -1) {
+      //   tickers_already_used.push(ticker);
+      //   table(ticker)
+      // }
+
 
       async function getStockData(ticker) {
         await set_symbol(ticker)
@@ -201,7 +271,8 @@ $(document).ready(function () {
 
   $(document).on("click", ".buttons", function (e) {
     // console.log("e",e.originalEvent.path)
-    console.log("e", e)
+    
+    console.log("this is stocks.id", stocks.id)
     console.log("e", e.target.id)
     var x = e.target.id
     var y = x.split("_", 1)
@@ -216,6 +287,19 @@ $(document).ready(function () {
       }
     }
   });
+
+  $("#deletebtn").click(function() {
+
+    $.ajax({
+      method: "DELETE",
+      url: "/api/examples/" + $(this).attr("data-id")
+    }).then(getStocks);
+
+  });
+
+  
+    
+
 });
 
 /*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/

@@ -1,10 +1,10 @@
 var db = require("../models");
 
 module.exports = function(app) {
-  // hmtl route to display homepage (index.html)
-  app.get("/", function(req, res) {
-    res.render("index");
-  });
+  // // hmtl route to display homepage (index.html)
+  // app.get("/", function(req, res) {
+  //   res.render("index");
+  // });
 
   // Load index page
   // app.get("/", function(req, res) {
@@ -21,8 +21,8 @@ module.exports = function(app) {
       var hbsObject = {
         examples: dbStocks
       };
-      console.log(hbsObject);
-      res.render("index", hbsObject);
+      console.log("hbsObject: " + JSON.stringify(hbsObject));
+      res.render("index", { stocks: dbStocks });
     });
   });
 
@@ -36,6 +36,5 @@ module.exports = function(app) {
       });
     });
   });
-
-
 };
+
