@@ -317,11 +317,13 @@ var API = {
       data: JSON.stringify(example)
     });
   },
-  getExamples: function () {
+  getExamples: function (somedata) {
+    console.log("somedata: ",somedata)
     return $.ajax({
       url: "api/examples",
       // url: "/",
-      type: "GET"
+      type: "GET",
+      data: JSON.stringify(somedata)
     });
   },
   deleteExample: function (id) {
@@ -337,11 +339,12 @@ function gittickers() {
   $.get("/api/getuserid", function (req, res) {
     console.log("/api/getuserid.req", req.userid)
     console.log("/api/getuserid.res", res)
-    var savetodatabaseid = {
-      user_id: req.userid
-    };
-    console.log("savetodatabaseid", savetodatabaseid)
-    API.getExamples(savetodatabaseid).then(function (data) {
+    // var savetodatabaseid = {
+    //   user_id: req.userid
+    // };
+    var user_id = req.userid
+    // console.log("savetodatabaseid", savetodatabaseid)
+    API.getExamples(user_id).then(function (data) {
       // console.log("Save Ticker To Database", req)
       console.log("data: ", data)
       for (i = 0; i < data.length; i++) {
