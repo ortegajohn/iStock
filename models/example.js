@@ -8,7 +8,6 @@ module.exports = function(sequelize, DataTypes) {
     dayHigh: DataTypes.FLOAT,
     dayLow: DataTypes.FLOAT,
     marketCap: DataTypes.FLOAT,
-    user_id:DataTypes.FLOAT,
     createdAt: DataTypes.DATE,
     updatedAt: DataTypes.DATE
   });
