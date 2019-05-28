@@ -1,3 +1,5 @@
+var request = require('request');
+var apiKey = 'lIKhQVypBswwedWGj8P5cK6lkYekVwecEbUAO6lLGAYIZVoWcTRUZfSSC9Qa';
 var db = require("../models");
 var sequelize = require("sequelize");
 module.exports = function (app) {
@@ -40,6 +42,7 @@ module.exports = function (app) {
           res.json(fromdb);
           // res.json(dbStocks[0].dataValues);
   
+
         }
   
       });
@@ -51,6 +54,7 @@ module.exports = function (app) {
   });
 
   // Create a new example
+
   app.post("/api/saveticker", function (req, res) {
     var test = {
       ticker: req.body.ticker,
@@ -61,6 +65,7 @@ module.exports = function (app) {
     db.Stocks.create(test).then(function (dbStocks) {
       console.log("dbStocks: ", dbStocks[0]);
       res.json(dbStocks);
+
     });
   });
 
@@ -70,6 +75,7 @@ module.exports = function (app) {
     db.Stocks.destroy({ where: { id: req.params.id } }).then(function (
       dbStocks
     ) {
+
       res.json(dbStocks);
     });
   });
