@@ -44,9 +44,4 @@ module.exports = function(app) {
   app.get("api/stockpage", function(req, res) {
     res.render("indexstock");;
   });
-
-
-
-
-
 };
