@@ -23,6 +23,7 @@ module.exports = function(app) {
       };
       console.log("hbsObject: " + JSON.stringify(hbsObject));
       res.render("index", { stocks: dbStocks });
+      // location.reload();
     });
   });
 
