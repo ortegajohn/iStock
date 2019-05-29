@@ -1,10 +1,11 @@
 {
   "development": {
-    "username": "root",
-    "password": "root",
-    "database": "istock_db",
-    "host": "localhost",
-    "port": "8889",
+
+    "username": "process.env.DB_USER",
+    "password": "process.env.DB_PASS",
+    "database": "process.env.DB_NAME",
+    "host": "process.env.DB_Host",
+    "port": "3306",
     "dialect": "mysql"
   },
   "test": {
