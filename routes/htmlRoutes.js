@@ -6,10 +6,6 @@ module.exports = function(app) {
   //   res.render("index");
   // });
 
-  app.get("/stockpage", function(req, res) {
-    res.render("indexstock");
-  });
-
   // Load index page
   // app.get("/", function(req, res) {
   //   db.Example.findAll({}).then(function(dbExamples) {
@@ -40,13 +36,5 @@ module.exports = function(app) {
       });
     });
   });
-
-
-  app.get("api/stockpage", function(req, res) {
-    res.render("indexstock");;
-  });
-
-
-
 };
 
