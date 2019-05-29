@@ -219,7 +219,7 @@ $(document).ready(function () {
 
 
       async function getStockData(ticker) {
-        await set_symbol(ticker)
+        // await set_symbol(ticker)
         // await get_market_cap(ticker)
         // // await get_ticker_info(ticker)
         // await choose_price_api(ticker)
@@ -289,4 +289,4 @@ $(document).ready(function () {
 });
 
 /*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
-autocomplete(document.getElementById("myInput"), tickers_names);
+// autocomplete(document.getElementById("myInput"), tickers_names);
