@@ -1,3 +1,4 @@
+require("dotenv").config();
 // bring overjquery functions from original code and store in orm
 var orm = {
     get_index: function (ticker) {
@@ -57,7 +58,7 @@ var orm = {
     },
     get_ticker_company: function (ticker) {
         $.ajax({
-            url: "https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=" + ticker + "&apikey=VWWIWESKA8BRE45M",
+            url: "https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=" + ticker + "&apikey=" + process.env.apikey,
             method: "GET"
         }).then(function (response2) {
             // console.log("response2: ",response2.bestMatches[0]["2. name"])
@@ -68,7 +69,7 @@ var orm = {
     },
     worldtradingdata_ticker_company: function (ticker) {
         $.ajax({
-            url: "https://www.worldtradingdata.com/api/v1/stock?symbol=" + ticker + "&api_token=NwKKaeNpI8lA9hVpjtqqdvqYWWqHf7EMegaRidS6DdgdwVja8b67OyCdH9n7",
+            url: "https://www.worldtradingdata.com/api/v1/stock?symbol=" + ticker + "&api_token=" + process.env.comptoken,
             method: "GET"
         }).then(function (response) {
             var worldtradingdata_name = response.data[0].name
@@ -126,7 +127,7 @@ var orm = {
         $.ajax({
             // url: "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=" + ticker + "&apikey=VWWIWESKA8BRE45M",
             //https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=MSFT&apikey=demo
-            url: "https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=" + ticker + "&apikey=VWWIWESKA8BRE45M",
+            url: "https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=" + ticker + "&apikey=" + process.env.info_key,
             method: "GET"
         }).then(function (response) {
             // console.log("response: ",response)
@@ -165,7 +166,7 @@ var orm = {
     },
     worldtradingdata_price: function (ticker) {
         $.ajax({
-            url: "https://www.worldtradingdata.com/api/v1/stock?symbol=" + ticker + "&api_token=NwKKaeNpI8lA9hVpjtqqdvqYWWqHf7EMegaRidS6DdgdwVja8b67OyCdH9n7",
+            url: "https://www.worldtradingdata.com/api/v1/stock?symbol=" + ticker + "&api_token=" + process.env.price_token,
             method: "GET"
         }).then(function (response) {
             var worldtradingdata = response.data[0].price
@@ -181,7 +182,7 @@ var orm = {
     },
     unibit_price: function (ticker) {
         $.ajax({
-            url: "https://api.unibit.ai/realtimestock/" + ticker + "?size=1&datatype=json&AccessKey=uL7aYHqtSvJIxAXo9XfS4-_0cNDx5faU",
+            url: "https://api.unibit.ai/realtimestock/" + ticker + "?size=1&datatype=json&AccessKey=" + process.env.accessKey,
             method: "GET"
         }).then(function (response) {
             var unibit_price = response[0].price
@@ -197,7 +198,7 @@ var orm = {
     },
     stockinfo: function (symbol) {
         $.ajax({
-            url: "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=" + symbol + "&apikey=MVG2GAAJUF1WORNH",
+            url: "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=" + symbol + "&apikey=" + process.env.STOCK_KEY,
             method: "GET"
         }).then(function (response) {
             // console.log(response)
