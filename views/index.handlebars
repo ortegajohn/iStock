@@ -93,17 +93,17 @@
           <th scope="col">Market Cap</th>
           <th scope="col">Remove</th> --}}
           {{#each stocks}}
-          <tr>
-          <th>{{this.ticker}}</th>
-          <th scope="col">{{this.name}}</th>
-          <th scope="col">{{this.price}}</th>
-          <th scope="col">{{this.open}}</th>
-          <th scope="col">{{this.percentChange}}</th>
-          <th scope="col">{{this.dayHigh}}</th>
-          <th scope="col">{{this.dayLow}}</th>
-          <th scope="col">{{this.marketCap}}</th>
-          {{!-- <th scope="col">{{this.}}</th> --}}
-        </tr>  
+            <tr>
+              <th><button class= "symbol">{{this.ticker}}</button></th>
+              <th scope="col">{{this.name}}</th>
+              <th scope="col">{{this.price}}</th>
+              <th scope="col">{{this.open}}</th>
+              <th scope="col">{{this.percentChange}}</th>
+              <th scope="col">{{this.dayHigh}}</th>
+              <th scope="col">{{this.dayLow}}</th>
+              <th scope="col">{{this.marketCap}}</th>
+              {{!-- <th scope="col">{{this.}}</th> --}}
+            </tr>  
           {{/each}}
           
 
@@ -120,7 +120,7 @@
   <!-- TradingView Widget END -->
   </div>
 
-  <div class="container">
+  {{!-- <div class="container">
     <div class="tabs is-boxed is-hovered">
       <ul class="is-hovered">
         <li class="is-active " id="info_tab">
@@ -137,7 +137,7 @@
         </li>
       </ul>
     </div>
-  </div>
+  </div> --}}
   <div class="container" id="stockcontent">
     <div id="stockinfo_id">
     </div>
