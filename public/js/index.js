@@ -426,7 +426,7 @@ $(document).on("click", ".symbol", function (e) {
   $(this).css('background-color', 'grey');
   update_chart(ticker_of_row)
   newsfeed(ticker_of_row)
-  stockinfo(ticker_of_row)
+  // stockinfo(ticker_of_row)
 });
 
 $(document).on("click", ".buttons", function (e) {
