@@ -1,5 +1,8 @@
 var request = require('request');
-var apiKey = 'lIKhQVypBswwedWGj8P5cK6lkYekVwecEbUAO6lLGAYIZVoWcTRUZfSSC9Qa';
+// var apiKey = process.env.apiKey;
+// var apiKey = 'lIKhQVypBswwedWGj8P5cK6lkYekVwecEbUAO6lLGAYIZVoWcTRUZfSSC9Qa';
+var apiKey = "NwKKaeNpI8lA9hVpjtqqdvqYWWqHf7EMegaRidS6DdgdwVja8b67OyCdH9n7";
+
 var db = require("../models");
 
 module.exports = function(app) {
@@ -18,10 +21,10 @@ module.exports = function(app) {
     request(getURL, { json: true }, (err, res, body) => {
       if (err) { return console.log(err); }
       // console.log("this is app.post");
-      console.log("req.body: " + JSON.stringify(req.body));
+      // console.log("req.body: " + JSON.stringify(req.body));
       // console.log("this is body: " + body);
       var myJSON = JSON.stringify(body);
-      console.log(myJSON);
+      // console.log("my json: " + myJSON);
             var test = { ticker: req.body.ticker,
                   name: body.data[0].name,
                   price: parseFloat(body.data[0].price),
@@ -32,10 +35,10 @@ module.exports = function(app) {
                   marketCap: parseFloat(body.data[0].market_cap)
        };
 
-      console.log("This is var test: " + JSON.stringify(test));
+      // console.log("This is var test: " + JSON.stringify(test));
 
       db.Stocks.create(test).then(function(dbStocks) {
-        res1.json(dbStocks);
+        res1.redirect('/');
     });
     
     });
