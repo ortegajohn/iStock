@@ -92,22 +92,24 @@
           <th scope="col">Low</th>
           <th scope="col">Market Cap</th>
           <th scope="col">Remove</th> --}}
+          <thead id="table_content">
           {{#each stocks}}
-            <tr>
-              <th><button class= "symbol">{{this.ticker}}</button></th>
-              <th scope="col">{{this.name}}</th>
-              <th scope="col">{{this.price}}</th>
-              <th scope="col">{{this.open}}</th>
-              <th scope="col">{{this.percentChange}}</th>
-              <th scope="col">{{this.dayHigh}}</th>
-              <th scope="col">{{this.dayLow}}</th>
-              <th scope="col">{{this.marketCap}}</th>
-              {{!-- <th scope="col">{{this.}}</th> --}}
-            </tr>  
+          <tr data-id={{this.id}}>
+          <th><button class="symbol">{{this.ticker}}</button></th>
+          <th scope="col">{{this.name}}</th>
+          <th scope="col">{{this.price}}</th>
+          <th scope="col">{{this.open}}</th>
+          <th scope="col">{{this.percentChange}}</th>
+          <th scope="col">{{this.dayHigh}}</th>
+          <th scope="col">{{this.dayLow}}</th>
+          <th scope="col">{{this.marketCap}}</th>
+          <th class="del_button" scope="col">
+            <button class="buttons" id="deletebtn" data-id={{this.id}}>
+                delete </button></th>
+        </tr>  
           {{/each}}
-          
-
       </thead>
+      
   </div>
   </table>
 

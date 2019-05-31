@@ -447,6 +447,17 @@ $(document).on("click", ".buttons", function (e) {
   }
 });
 
+$(document).on("click", "#deletebtn", function (e) {
+  e.preventDefault();
+  
+  console.log("This is data-id: ", $(this).attr("data-id"));
+  $.ajax({
+    method: "DELETE",
+    url: "/api/examples/" + $(this).attr("data-id")
+  }).then(getStocks);
+  location.reload();
+});
+
 
 /*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
 autocomplete(document.getElementById("myInput"), tickers_names);
