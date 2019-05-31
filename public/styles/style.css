@@ -9,17 +9,19 @@
  } */
 
  body{
-  background-image: url(../images/background1.jpg);
-  background-repeat: no-repeat;
-  background-size: 100% 100%; 
- }
- html {
-   height:100%;
- }
 
-.container #display {
-  width:100%;
-}
+    background-image: url(../images/background1.jpg);
+    background-repeat: no-repeat;
+    background-size: 100% 100%; 
+   }
+   html {
+     height:100%;
+   }
+  
+  .container #display {
+    width:100%;
+  }
+  
   
    .container {
     margin: 0 auto;
