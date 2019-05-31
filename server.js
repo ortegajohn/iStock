@@ -16,7 +16,7 @@ const {
 } = require('./database/database_keys');
 
 var app = express();
-var PORT = process.env.PORT || 3001;
+var PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(express.urlencoded({ extended: false }));

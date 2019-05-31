@@ -1,4 +1,5 @@
 var db = require("../models");
+var sequelize = require("sequelize");
 
 module.exports = function(app) {
   // // hmtl route to display homepage (index.html)
@@ -18,7 +19,15 @@ module.exports = function(app) {
 
   app.get("/", function(req, res) {
     console.log("redirected here!")
-    db.Stocks.findAll({}).then(function(dbStocks) {
+    db.Stocks.findAll({
+
+      where: sequelize.where(
+        sequelize.literal('user_id'),
+        '=',
+        req.user.id
+      )
+
+    }).then(function(dbStocks) {
       // var hbsObject = {
       //   examples: dbStocks
       // };
@@ -32,7 +41,14 @@ module.exports = function(app) {
 
   app.get("/stockpage", function(req, res) {
     console.log("CHHHUUUURRRRRRRP")
-    db.Stocks.findAll({}).then(function(dbStocks) {
+    db.Stocks.findAll({
+
+      where: sequelize.where(
+        sequelize.literal('user_id'),
+        '=',
+        req.user.id
+      )
+    }).then(function(dbStocks) {
       // var hbsObject = {
       //   examples: dbStocks
       // };
