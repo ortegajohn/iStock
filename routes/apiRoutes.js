@@ -1,5 +1,6 @@
 var request = require('request');
-var apiKey = 'lIKhQVypBswwedWGj8P5cK6lkYekVwecEbUAO6lLGAYIZVoWcTRUZfSSC9Qa';
+require("./")
+var apiKey = process.env.apiKey;
 var db = require("../models");
 var sequelize = require("sequelize");
 module.exports = function (app) {

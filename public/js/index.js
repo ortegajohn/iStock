@@ -1,5 +1,5 @@
 // gloval variables
-
+require("../../views/")
 var price;
 var company;
 var tickers_already_used = [];
