@@ -6,10 +6,6 @@ module.exports = function(app) {
   //   res.render("index");
   // });
 
-  app.get("/stockpage", function(req, res) {
-    res.render("indexstock");
-  });
-
   // Load index page
   // app.get("/", function(req, res) {
   //   db.Example.findAll({}).then(function(dbExamples) {
@@ -21,12 +17,31 @@ module.exports = function(app) {
   // });
 
   app.get("/", function(req, res) {
+    console.log("redirected here!")
     db.Stocks.findAll({}).then(function(dbStocks) {
-      var hbsObject = {
-        examples: dbStocks
-      };
-      console.log("hbsObject: " + JSON.stringify(hbsObject));
+      // var hbsObject = {
+      //   examples: dbStocks
+      // };
+      // console.log("hbsObject: " + JSON.stringify(hbsObject));
+      console.log(dbStocks);
       res.render("index", { stocks: dbStocks });
+      // location.reload();
+      // return res.redirect("/");
+    });
+  });
+
+  app.get("/stockpage", function(req, res) {
+    console.log("CHHHUUUURRRRRRRP")
+    db.Stocks.findAll({}).then(function(dbStocks) {
+      // var hbsObject = {
+      //   examples: dbStocks
+      // };
+      // console.log("hbsObject: " + JSON.stringify(hbsObject));
+      // console.log("Test:",dbStocks)
+      
+      // res.render("index", { stocks: dbStocks });
+      // location.reload();
+       res.redirect("/");
     });
   });
 
@@ -40,13 +55,5 @@ module.exports = function(app) {
       });
     });
   });
-
-
-  app.get("api/stockpage", function(req, res) {
-    res.render("indexstock");;
-  });
-
-
-
 };
 

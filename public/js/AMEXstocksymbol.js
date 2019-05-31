@@ -1,5 +1,4 @@
 
-
 var AMEX_tickers = [
     "XXII",
     "FAX",
