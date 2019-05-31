@@ -1,4 +1,5 @@
 var request = require('request');
+var sequelize = require("sequelize");
 // var apiKey = process.env.apiKey;
 // var apiKey = 'lIKhQVypBswwedWGj8P5cK6lkYekVwecEbUAO6lLGAYIZVoWcTRUZfSSC9Qa';
 var apiKey = "NwKKaeNpI8lA9hVpjtqqdvqYWWqHf7EMegaRidS6DdgdwVja8b67OyCdH9n7";
@@ -9,6 +10,11 @@ module.exports = function(app) {
   // Get all examples
   app.get("/api/examples", function(req, res) {
     db.Stocks.findAll({
+      where: sequelize.where(
+        sequelize.literal('user_id'),
+        '=',
+        req.user.id
+      )
       
     }).then(function(dbStocks) {
       res.json(dbStocks);

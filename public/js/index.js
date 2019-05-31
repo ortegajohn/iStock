@@ -70,7 +70,7 @@ function getStocks() {
   $.get("/api/examples", function (data) {
     // res.redirect("/")
     stocks = data;
-    console.log("stocks: " + JSON.stringify(stocks));
+    // console.log("stocks: " + JSON.stringify(stocks));
 
     // initializeRows();
   });
