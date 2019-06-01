@@ -39,11 +39,7 @@ module.exports = function(app) {
     console.log("CHHHUUUURRRRRRRP")
     db.Stocks.findAll({
 
-      where: sequelize.where(
-        sequelize.literal('user_id'),
-        '=',
-        req.user.id
-      )
+
     }).then(function(dbStocks) {
       // var hbsObject = {
       //   examples: dbStocks
