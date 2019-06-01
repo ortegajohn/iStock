@@ -13,3 +13,7 @@ This is a Node application.
 * mysql and sequelize: Database interaction
 * Request: Server side api requests
 * Handlebars: HTML page managment
+
+### Deployed On Heroku
+
+https://istock-tropic.herokuapp.com/
