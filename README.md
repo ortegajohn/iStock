@@ -6,3 +6,10 @@ The user can search for a stock by typing in the ticker and selecting from a dro
 
 ### Technologies Used
 
+This is a Node application.
+
+* Express: Used for the server
+* Passport.js: Authentication/Login
+* mysql and sequelize: Database interaction
+* Request: Server side api requests
+* Handlebars: HTML page managment
