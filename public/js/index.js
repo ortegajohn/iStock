@@ -454,8 +454,15 @@ $(document).on("click", "#deletebtn", function (e) {
   $.ajax({
     method: "DELETE",
     url: "/api/examples/" + $(this).attr("data-id")
-  }).then(getStocks);
-  location.reload();
+  })
+  // .then(getStocks);
+  // location.reload();
+  .then(function(req,res){
+    console.log("Object.keys(req): ", Object.keys(req));
+    console.log("Object.keys(res): ", Object.keys(res));
+
+    // location.reload();
+  });
 });
 
 
