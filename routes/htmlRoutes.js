@@ -19,20 +19,49 @@ module.exports = function(app) {
 
   
   app.get("/", function(req, res) {
-    console.log("redirected here!")
-    db.Stocks.findAll({
+    // console.log(req)
+    // console.log("redirected here!")
+    // console.log("Object.keys(req): ", Object.keys(req));
+  
+    if(req.user !== undefined  ){
+      db.Stocks.findAll({
 
+        where: sequelize.where(
+          sequelize.literal('user_id'),
+          '=',
+          req.user.id
+        )
+      }).then(function(dbStocks) {
+        // var hbsObject = {
+        //   examples: dbStocks
+        // };
+        // console.log("hbsObject: " + JSON.stringify(hbsObject));
+        console.log("Object.keys(dbStocks): ", Object.keys(dbStocks));
+        res.render("index", { stocks: dbStocks });
+        // location.reload();
+        // return res.redirect("/");
+      });
+    }else{
 
-    }).then(function(dbStocks) {
-      // var hbsObject = {
-      //   examples: dbStocks
-      // };
-      // console.log("hbsObject: " + JSON.stringify(hbsObject));
-      console.log("Object.keys(dbStocks): ", Object.keys(dbStocks));
-      res.render("index", { stocks: dbStocks });
-      // location.reload();
-      // return res.redirect("/");
-    });
+      db.Stocks.findAll({
+        where: {
+          user_id: {
+            $eq: null
+          }
+      }
+      }).then(function(dbStocks) {
+        // var hbsObject = {
+        //   examples: dbStocks
+        // };
+        // console.log("hbsObject: " + JSON.stringify(hbsObject));
+        console.log("Object.keys(dbStocks): ", Object.keys(dbStocks));
+        res.render("index", { stocks: dbStocks });
+        // location.reload();
+        // return res.redirect("/");
+      });
+    }
+
+   
   });
 
   app.get("/stockpage", function(req, res) {

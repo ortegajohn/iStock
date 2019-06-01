@@ -32,6 +32,8 @@ var stocks = [];
 
 var API = {
   saveExample: function (example) {
+    window.ticker = example.ticker
+    // console.log("example:", example.ticker)
     return $.ajax({
       headers: {
         "Content-Type": "application/json"
@@ -39,8 +41,16 @@ var API = {
       type: "POST",
       url: "api/examples",
       data: JSON.stringify(example)
-    }).then(function(){
-      location.reload();
+    }).then(function(req,res){
+      location.reload()
+      console.log("update_chart(window.ticker):", window.ticker)
+      update_chart(window.ticker)
+    
+      
+      // update_chart(ticker)
+      // console.log("Object.keys(req): ", Object.keys(req));
+      // console.log("Object.keys(res): ", Object.keys(res));
+      // console.log("res.body): ", res.body);
     });
   },
   getExamples: function (somedata) {
@@ -58,6 +68,11 @@ var API = {
     return $.ajax({
       url: "api/examples/" + id,
       type: "DELETE"
+    }).then(function(req,res){
+      console.log("Object.keys(req): ", Object.keys(req));
+      console.log("Object.keys(res): ", Object.keys(res));
+      console.log("res.body): ", res.body);
+      // location.reload();
     });
   }
 };
@@ -315,6 +330,7 @@ function autocomplete(inp, arr) {
   });
 }
 
+
 //  all frontend code like jquery and what not
 $(document).ready(function () {
 
@@ -328,11 +344,28 @@ $(document).ready(function () {
     // console.log("get_input_ticker: ", get_input_ticker)
     // console.log("get_input_ticker.join(): ", get_input_ticker.join())
     var ticker = get_input_ticker.join()
-    var tickerObject = { ticker: ticker };
+
+    $.get("/api/getuserid", function (req, res) {
+      console.log("/api/getuserid.req", req.userid)
+      console.log("/api/getuserid.res", res)
+      var savetodatabase = {
+        ticker: ticker,
+        user_id: req.userid
+      };
+      console.log("savetodatabase", savetodatabase)
+      API.saveExample(savetodatabase).then(function () {
+        // console.log("Save Ticker To Database", req)
+      });
+
+    });
+
+
+
+    // var tickerObject = { ticker: ticker };
     // var stockId = $(this).data("id");
     // console.log("stock id = " + stockId);
 
-    API.saveExample(tickerObject);
+    // API.saveExample(tickerObject);
     // API.getExamples(tickerObject);
 
     // $.ajax({
@@ -364,7 +397,7 @@ $(document).ready(function () {
     }
     console.log("is_real_ticker: ", is_real_ticker)
     if (is_real_ticker) {
-
+      update_chart(ticker)
       // if (tickers_already_used.indexOf(ticker) <= -1) {
       //   tickers_already_used.push(ticker);
       //   table(ticker)
@@ -458,8 +491,6 @@ $(document).on("click", "#deletebtn", function (e) {
   // .then(getStocks);
   // location.reload();
   .then(function(req,res){
-    console.log("Object.keys(req): ", Object.keys(req));
-    console.log("Object.keys(res): ", Object.keys(res));
 
     // location.reload();
   });
