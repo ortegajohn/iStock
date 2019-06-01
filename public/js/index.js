@@ -337,28 +337,7 @@ $(document).ready(function () {
   $(document).on("click", ".button", function (e) {
     e.preventDefault();
 
-    // getStocks();
-    // location.reload();
-    var get_input = $(".input").val().toUpperCase()
-    get_input_ticker = get_input.split(" ", 1)
-    // console.log("get_input_ticker: ", get_input_ticker)
-    // console.log("get_input_ticker.join(): ", get_input_ticker.join())
-    var ticker = get_input_ticker.join()
-
-    $.get("/api/getuserid", function (req, res) {
-      console.log("/api/getuserid.req", req.userid)
-      console.log("/api/getuserid.res", res)
-      var savetodatabase = {
-        ticker: ticker,
-        user_id: req.userid
-      };
-      console.log("savetodatabase", savetodatabase)
-      API.saveExample(savetodatabase).then(function () {
-        // console.log("Save Ticker To Database", req)
-      });
-
-    });
-
+    
 
 
     // var tickerObject = { ticker: ticker };
@@ -397,11 +376,33 @@ $(document).ready(function () {
     }
     console.log("is_real_ticker: ", is_real_ticker)
     if (is_real_ticker) {
-      update_chart(ticker)
+      
       // if (tickers_already_used.indexOf(ticker) <= -1) {
       //   tickers_already_used.push(ticker);
       //   table(ticker)
       // }
+// getStocks();
+    // location.reload();
+    var get_input = $(".input").val().toUpperCase()
+    get_input_ticker = get_input.split(" ", 1)
+    // console.log("get_input_ticker: ", get_input_ticker)
+    // console.log("get_input_ticker.join(): ", get_input_ticker.join())
+    var ticker = get_input_ticker.join()
+
+    $.get("/api/getuserid", function (req, res) {
+      console.log("/api/getuserid.req", req.userid)
+      console.log("/api/getuserid.res", res)
+      var savetodatabase = {
+        ticker: ticker,
+        user_id: req.userid
+      };
+      console.log("savetodatabase", savetodatabase)
+      API.saveExample(savetodatabase).then(function () {
+        // console.log("Save Ticker To Database", req)
+        update_chart(ticker)
+      });
+
+    });
 
 
       // async 
