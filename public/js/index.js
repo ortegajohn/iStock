@@ -337,7 +337,11 @@ $(document).ready(function () {
   $(document).on("click", ".button", function (e) {
     e.preventDefault();
 
-    
+    var get_input = $(".input").val().toUpperCase()
+    get_input_ticker = get_input.split(" ", 1)
+    // console.log("get_input_ticker: ", get_input_ticker)
+    // console.log("get_input_ticker.join(): ", get_input_ticker.join())
+    var ticker = get_input_ticker.join()
 
 
     // var tickerObject = { ticker: ticker };
@@ -383,11 +387,7 @@ $(document).ready(function () {
       // }
 // getStocks();
     // location.reload();
-    var get_input = $(".input").val().toUpperCase()
-    get_input_ticker = get_input.split(" ", 1)
-    // console.log("get_input_ticker: ", get_input_ticker)
-    // console.log("get_input_ticker.join(): ", get_input_ticker.join())
-    var ticker = get_input_ticker.join()
+
 
     $.get("/api/getuserid", function (req, res) {
       console.log("/api/getuserid.req", req.userid)
