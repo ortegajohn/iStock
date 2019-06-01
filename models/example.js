@@ -3,6 +3,7 @@ module.exports = function(sequelize, DataTypes) {
     ticker: DataTypes.STRING,
     name: DataTypes.STRING,
     price: DataTypes.FLOAT,
+    user_id:DataTypes.FLOAT,
     open: DataTypes.FLOAT,
     percentChange: DataTypes.FLOAT,
     dayHigh: DataTypes.FLOAT,
