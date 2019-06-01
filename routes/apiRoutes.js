@@ -55,6 +55,7 @@ module.exports = function(app) {
     db.Stocks.destroy({ where: { id: req.params.id } }).then(function(
       dbStocks
     ) {
+      console.log("Object.keys(dbStocks): ", Object.keys(dbStocks));
       res.json(dbStocks);
     });
   });

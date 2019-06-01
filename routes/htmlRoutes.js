@@ -28,7 +28,7 @@ module.exports = function(app) {
       //   examples: dbStocks
       // };
       // console.log("hbsObject: " + JSON.stringify(hbsObject));
-      console.log(Object.keys(dbStocks));
+      console.log("Object.keys(dbStocks): ", Object.keys(dbStocks));
       res.render("index", { stocks: dbStocks });
       // location.reload();
       // return res.redirect("/");
