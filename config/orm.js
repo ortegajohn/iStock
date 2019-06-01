@@ -125,8 +125,6 @@ var orm = {
         var time_series = [];
 
         $.ajax({
-            // url: "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=" + ticker + "&apikey=VWWIWESKA8BRE45M",
-            //https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=MSFT&apikey=demo
             url: "https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=" + ticker + "&apikey=" + process.env.info_key,
             method: "GET"
         }).then(function (response) {
